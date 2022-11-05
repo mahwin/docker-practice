@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  db:   // container의 이름이 됨
+    image: 실행할 image이름
+    volumns:
+      - ./db_data:/var/lib/mysql
+    restart:always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress_user
+      MYSQL_PASSWORD:1234
+
+  app:
+    depends_on:  // => 무슨 컨테이너가 먼저 만들어질지
+      - db
+    image: wordpress:latest
+    volumns:
+    - ./app_data:/var/www/html
+    ports:
+    - "8080:80"
+    restart: always
+    environment:
+    WORDPRESS_DB_HOST: db:3306
+    ...
+    .
+    .
+    .
+    .
+    
+이런식으로 하고 docker-compose up명령어를 치면 위의 내용을 기준으로 컨테이너 생성해줌.
+
+끄고 싶을때는 docker-compose down
+
+
+docker network 는 따로 설정할 필요가 없음 자동으로 연결해줘서!
