@@ -123,29 +123,13 @@ RUN apt update && apt install -y python3
 WORKDIT /var/www/html => 이렇게 하면 없으면 만들고 저기로 이동하고 명령어가 실행될때 저 위치를 대상으로 명령이 실행됨
 
 RUN echo "Hello. <strong>Docker</strong>" > index.html
-
 로 하면 저 WORKDIT바로 아래에 index.html에 위의 내용이 담긴 파일이 생김
 
+이렇게 말고 host에서 관리도 가능함
 
+COPY ["index.html","."]
+host에 있는 index.html을 WORKDIT에 복사하라는 말!
 
-
-
-
-
-
-
-
-Dockerfile => 나만의 이미지를 만들기 위한 설계도
-
-RUN => image 만들어질 과정에서 실행할 명령어
-
-node 안에서 만들어 지니까 npm i 해서 패키지 제이슨 파일에 저장된 node module 설치
-
-
-WORKDIR => 명령어를 실행할 위치 (아래의 CMD 명령어가)
-
-CMD :['']
-
-COPY 복사
+CMD ["python3","-u","-m","http.server"]
 
 
